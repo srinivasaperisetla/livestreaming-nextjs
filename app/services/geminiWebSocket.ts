@@ -7,6 +7,41 @@ const API_KEY = process.env.NEXT_PUBLIC_GEMINI_API_KEY;
 const HOST = "generativelanguage.googleapis.com";
 const WS_URL = `wss://${HOST}/ws/google.ai.generativelanguage.v1alpha.GenerativeService.BidiGenerateContent?key=${API_KEY}`;
 
+async function setLightValues(brightness: any, colorTemp: any) {
+  return {
+    brightness: brightness,
+    colorTemperature: colorTemp
+  };
+}
+
+const controlLightFunctionDeclaration = {
+  name: "controlLight",
+  parameters: {
+    type: "OBJECT",
+    description: "Set the brightness and color temperature of a room light.",
+    properties: {
+      brightness: {
+        type: "NUMBER",
+        description: "Light level from 0 to 100. Zero is off and 100 is full brightness.",
+      },
+      colorTemperature: {
+        type: "STRING",
+        description: "Color temperature of the light fixture which can be `daylight`, `cool` or `warm`.",
+      },
+    },
+    required: ["brightness", "colorTemperature"],
+  },
+};
+
+const functions = {
+  controlLight: ({ brightness, colorTemperature }: { brightness: string; colorTemperature: string }) => {
+    return setLightValues(brightness, colorTemperature);
+  }
+};
+
+const system_instruction = "You are a medical assistant chatbot";
+
+
 export class GeminiWebSocket {
   private ws: WebSocket | null = null;
   private isConnected: boolean = false;
@@ -94,7 +129,11 @@ export class GeminiWebSocket {
         model: MODEL,
         generation_config: {
           response_modalities: ["AUDIO"] 
-        }
+        },
+        tools: {
+          functionDeclarations: [controlLightFunctionDeclaration],
+        },
+        // system_instruction: system_instruction
       }
     };
     this.ws?.send(JSON.stringify(setupMessage));
@@ -214,6 +253,36 @@ export class GeminiWebSocket {
   private async handleMessage(message: string) {
     try {
       const messageData = JSON.parse(message);
+
+      console.log("messageData: ",  messageData)
+      console.log(messageData.toolCall?.functionCalls)
+
+      if (messageData.toolCall?.functionCalls) {
+        // If the server sends multiple function calls in an array, handle them all
+        for (const funcCall of messageData.toolCall.functionCalls) {
+          if (funcCall.name === "controlLight") {
+            const { args, id } = funcCall;
+            // Call our actual JS function with the args
+            const result = await functions.controlLight(args);
+      
+            // Build a response object to send back
+            const responseMessage = {
+              functionResponse: {
+                name: "controlLight",
+                response: result,
+                id, // pass along the call's ID if needed
+              }
+            };
+            this.ws?.send(JSON.stringify(responseMessage));
+            console.log("[Tool Response]:", result);
+      
+            // If you only expect one function call at a time, you can return after
+            // processing the first. Otherwise, remove this return if you want to
+            // handle multiple calls in one message.
+            return;
+          }
+        }
+      }
       
       if (messageData.setupComplete) {
         this.isSetupComplete = true;
