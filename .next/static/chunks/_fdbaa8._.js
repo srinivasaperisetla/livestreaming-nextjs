@@ -11,7 +11,7 @@ __turbopack_esm__({
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$google$2f$generative$2d$ai$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/@google/generative-ai/dist/index.mjs [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$build$2f$polyfills$2f$process$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/next/dist/build/polyfills/process.js [app-client] (ecmascript)");
 ;
-const genAI = new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$google$2f$generative$2d$ai$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["GoogleGenerativeAI"](("TURBOPACK compile-time value", "AIzaSyBE_d4CulcTfFyeiIdUO41ZOGVmWMe1HeI") || '');
+const genAI = new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$google$2f$generative$2d$ai$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["GoogleGenerativeAI"](("TURBOPACK compile-time value", "") || '');
 const MODEL_NAME = "gemini-1.5-flash-8b";
 class TranscriptionService {
     model;
@@ -173,7 +173,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist
 ;
 ;
 const MODEL = "models/gemini-2.0-flash-exp";
-const API_KEY = ("TURBOPACK compile-time value", "AIzaSyBE_d4CulcTfFyeiIdUO41ZOGVmWMe1HeI");
+const API_KEY = ("TURBOPACK compile-time value", "");
 const HOST = "generativelanguage.googleapis.com";
 const WS_URL = `wss://${HOST}/ws/google.ai.generativelanguage.v1alpha.GenerativeService.BidiGenerateContent?key=${API_KEY}`;
 async function setLightValues(brightness, colorTemp) {
@@ -182,6 +182,40 @@ async function setLightValues(brightness, colorTemp) {
         colorTemperature: colorTemp
     };
 }
+async function fetchDoctors(postal_code) {
+    try {
+        const res = await fetch('/api/nppes', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                postal_code: postal_code
+            })
+        });
+        if (!res.ok) throw new Error('Failed to fetch');
+        const data = await res.json();
+        return data;
+    } catch (err) {
+        console.log(err);
+    }
+}
+const fetchDoctorsDeclaration = {
+    name: "getDoctorsFromPostalCode",
+    parameters: {
+        type: "OBJECT",
+        description: "fetch the doctors from a specific postal code",
+        properties: {
+            postal_code: {
+                type: "NUMBER",
+                description: "fetch the doctors from this postal code"
+            }
+        },
+        required: [
+            "postal_code"
+        ]
+    }
+};
 const controlLightFunctionDeclaration = {
     name: "controlLight",
     parameters: {
@@ -206,6 +240,9 @@ const controlLightFunctionDeclaration = {
 const functions = {
     controlLight: ({ brightness, colorTemperature })=>{
         return setLightValues(brightness, colorTemperature);
+    },
+    getDoctorsFromPostalCode: ({ postal_code })=>{
+        return fetchDoctors(postal_code);
     }
 };
 const system_instruction = "You are a medical assistant chatbot";
@@ -284,7 +321,8 @@ class GeminiWebSocket {
                 },
                 tools: {
                     functionDeclarations: [
-                        controlLightFunctionDeclaration
+                        controlLightFunctionDeclaration,
+                        fetchDoctorsDeclaration
                     ]
                 }
             }
@@ -410,6 +448,18 @@ class GeminiWebSocket {
                         // processing the first. Otherwise, remove this return if you want to
                         // handle multiple calls in one message.
                         return;
+                    } else if (funcCall.name === "getDoctorsFromPostalCode") {
+                        const { args, id } = funcCall;
+                        const result = await functions.getDoctorsFromPostalCode(args);
+                        const responseMessage = {
+                            functionResponse: {
+                                name: "getDoctorsFromPostalCode",
+                                response: result,
+                                id
+                            }
+                        };
+                        this.ws?.send(JSON.stringify(responseMessage));
+                        console.log("[Tool Response]:", result);
                     }
                 }
             }

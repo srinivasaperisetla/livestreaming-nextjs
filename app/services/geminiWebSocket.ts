@@ -14,6 +14,41 @@ async function setLightValues(brightness: any, colorTemp: any) {
   };
 }
 
+async function fetchDoctors(postal_code: any){
+
+  try {
+    const res = await fetch('/api/nppes', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ postal_code: postal_code }),
+    });
+
+    if (!res.ok) throw new Error('Failed to fetch');
+
+    const data = await res.json();
+    return data;
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+const fetchDoctorsDeclaration = {
+  name: "getDoctorsFromPostalCode",
+  parameters: {
+    type: "OBJECT",
+    description: "fetch the doctors from a specific postal code",
+    properties: {
+      postal_code: {
+        type: "NUMBER",
+        description: "fetch the doctors from this postal code",
+      }
+    },
+    required: ["postal_code"],
+  },
+}
+
 const controlLightFunctionDeclaration = {
   name: "controlLight",
   parameters: {
@@ -36,7 +71,11 @@ const controlLightFunctionDeclaration = {
 const functions = {
   controlLight: ({ brightness, colorTemperature }: { brightness: string; colorTemperature: string }) => {
     return setLightValues(brightness, colorTemperature);
-  }
+  },
+  getDoctorsFromPostalCode: ({ postal_code }: { postal_code : string; }) => {
+    return fetchDoctors(postal_code);
+  },
+  
 };
 
 const system_instruction = "You are a medical assistant chatbot";
@@ -131,7 +170,7 @@ export class GeminiWebSocket {
           response_modalities: ["AUDIO"] 
         },
         tools: {
-          functionDeclarations: [controlLightFunctionDeclaration],
+          functionDeclarations: [controlLightFunctionDeclaration, fetchDoctorsDeclaration],
         },
         // system_instruction: system_instruction
       }
@@ -280,6 +319,19 @@ export class GeminiWebSocket {
             // processing the first. Otherwise, remove this return if you want to
             // handle multiple calls in one message.
             return;
+          }
+          else if(funcCall.name === "getDoctorsFromPostalCode"){
+            const { args, id } = funcCall;
+            const result = await functions.getDoctorsFromPostalCode(args);
+            const responseMessage = {
+              functionResponse: {
+                name: "getDoctorsFromPostalCode",
+                response: result,
+                id, // pass along the call's ID if needed
+              }
+            };
+            this.ws?.send(JSON.stringify(responseMessage));
+            console.log("[Tool Response]:", result);
           }
         }
       }

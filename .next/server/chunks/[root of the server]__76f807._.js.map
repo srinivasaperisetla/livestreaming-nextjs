@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 55, "column": 0}, "map": {"version":3,"sources":["file:///Users/srinivasaperisetla/HealthInnovatorsAI/gemini-nextjs/app/api/nppes/route.ts"],"sourcesContent":["// app/api/nppes/route.ts\nimport { NextResponse } from 'next/server';\n\nexport async function POST(req: Request) {\n  const { postal_code, limit = 10 } = await req.json();\n\n  const url = new URL('https://npiregistry.cms.hhs.gov/api/');\n  url.searchParams.append('version', '2.1');\n  url.searchParams.append('postal_code', postal_code);\n  url.searchParams.append('limit', limit.toString());\n\n  const res = await fetch(url.toString(), { cache: 'no-store' });\n\n  if (!res.ok) {\n    return NextResponse.json({ error: 'Failed to fetch NPI data' }, { status: 500 });\n  }\n\n  const data = await res.json();\n  return NextResponse.json(data.results || []);\n}\n"],"names":[],"mappings":"AAAA,yBAAyB;;;;AACzB;;AAEO,eAAe,KAAK,GAAY;IACrC,MAAM,EAAE,WAAW,EAAE,QAAQ,EAAE,EAAE,GAAG,MAAM,IAAI,IAAI;IAElD,MAAM,MAAM,IAAI,IAAI;IACpB,IAAI,YAAY,CAAC,MAAM,CAAC,WAAW;IACnC,IAAI,YAAY,CAAC,MAAM,CAAC,eAAe;IACvC,IAAI,YAAY,CAAC,MAAM,CAAC,SAAS,MAAM,QAAQ;IAE/C,MAAM,MAAM,MAAM,MAAM,IAAI,QAAQ,IAAI;QAAE,OAAO;IAAW;IAE5D,IAAI,CAAC,IAAI,EAAE,EAAE;QACX,OAAO,gIAAA,CAAA,eAAY,CAAC,IAAI,CAAC;YAAE,OAAO;QAA2B,GAAG;YAAE,QAAQ;QAAI;IAChF;IAEA,MAAM,OAAO,MAAM,IAAI,IAAI;IAC3B,OAAO,gIAAA,CAAA,eAAY,CAAC,IAAI,CAAC,KAAK,OAAO,IAAI,EAAE;AAC7C"}},
+    {"offset": {"line": 80, "column": 0}, "map": {"version":3,"sources":[],"names":[],"mappings":"A"}}]
+}
