@@ -6,7 +6,7 @@ function debugSaveWav(wavData: string, filename: string = 'debug.wav') {
     bytes[i] = byteString.charCodeAt(i);
   }
   
-  // Create blob and download
+  // Create blob and download for test
   const blob = new Blob([bytes], { type: 'audio/wav' });
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');

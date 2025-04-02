@@ -63,7 +63,7 @@ function debugSaveWav(wavData, filename = 'debug.wav') {
     for(let i = 0; i < byteString.length; i++){
         bytes[i] = byteString.charCodeAt(i);
     }
-    // Create blob and download
+    // Create blob and download for test
     const blob = new Blob([
         bytes
     ], {
