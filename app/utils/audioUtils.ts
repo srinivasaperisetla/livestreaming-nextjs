@@ -1,22 +1,22 @@
 // Helper function to download and analyze WAV data
-function debugSaveWav(wavData: string, filename: string = 'debug.wav') {
-  const byteString = atob(wavData);
-  const bytes = new Uint8Array(byteString.length);
-  for (let i = 0; i < byteString.length; i++) {
-    bytes[i] = byteString.charCodeAt(i);
-  }
+// function debugSaveWav(wavData: string, filename: string = 'debug.wav') {
+//   const byteString = atob(wavData);
+//   const bytes = new Uint8Array(byteString.length);
+//   for (let i = 0; i < byteString.length; i++) {
+//     bytes[i] = byteString.charCodeAt(i);
+//   }
   
-  // Create blob and download for test
-  const blob = new Blob([bytes], { type: 'audio/wav' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = filename;
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-  URL.revokeObjectURL(url);
-}
+//   // Create blob and download for test
+//   const blob = new Blob([bytes], { type: 'audio/wav' });
+//   const url = URL.createObjectURL(blob);
+//   const a = document.createElement('a');
+//   a.href = url;
+//   a.download = filename;
+//   document.body.appendChild(a);
+//   a.click();
+//   document.body.removeChild(a);
+//   URL.revokeObjectURL(url);
+// }
 
 export function pcmToWav(pcmData: string, sampleRate: number = 24000): Promise<string> {
   return new Promise((resolve, reject) => {
