@@ -19,6 +19,7 @@ export const useMediaCapture = (onTranscription: (text: string) => void) => {
   const [outputAudioLevel, setOutputAudioLevel] = useState(0);
   const [connectionStatus, setConnectionStatus] = useState<'disconnected' | 'connecting' | 'connected'>('disconnected');
   const [isAudioOnly, setIsAudioOnly] = useState(false);
+  const [isAudioOn, setIsAudioOn] = useState(true);
 
   const cleanupAudio = useCallback(() => {
     if (audioWorkletNodeRef.current) {
@@ -212,7 +213,9 @@ export const useMediaCapture = (onTranscription: (text: string) => void) => {
   // Audio processing setup effect
   useEffect(() => {
     if (!isStreaming || !stream || !audioContextRef.current || 
-        !isWebSocketReady || isAudioSetup || setupInProgressRef.current) return;
+        !isWebSocketReady || isAudioSetup || setupInProgressRef.current || !isAudioOn) {
+      return;
+    }
 
     let isActive = true;
     setupInProgressRef.current = true;
@@ -284,7 +287,7 @@ export const useMediaCapture = (onTranscription: (text: string) => void) => {
         audioWorkletNodeRef.current = null;
       }
     };
-  }, [isStreaming, stream, isWebSocketReady, isModelSpeaking, cleanupAudio]);
+  }, [isStreaming, stream, isWebSocketReady, isModelSpeaking, cleanupAudio, isAudioOn, isAudioSetup]);
 
   return {
     videoRef,
