@@ -1,4 +1,4 @@
-(globalThis.TURBOPACK = globalThis.TURBOPACK || []).push(["static/chunks/_fdbaa8._.js", {
+(globalThis.TURBOPACK = globalThis.TURBOPACK || []).push(["static/chunks/_a24de8._.js", {
 
 "[project]/app/services/transcriptionService.ts [app-client] (ecmascript)": ((__turbopack_context__) => {
 "use strict";
@@ -511,28 +511,22 @@ if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelper
     __turbopack_refresh__.registerExports(module, globalThis.$RefreshHelpers$);
 }
 }}),
-"[project]/app/components/CameraPreview.tsx [app-client] (ecmascript)": ((__turbopack_context__) => {
+"[project]/app/hooks/useMediaCapture.ts [app-client] (ecmascript)": ((__turbopack_context__) => {
 "use strict";
 
 var { r: __turbopack_require__, f: __turbopack_module_context__, i: __turbopack_import__, s: __turbopack_esm__, v: __turbopack_export_value__, n: __turbopack_export_namespace__, c: __turbopack_cache__, M: __turbopack_modules__, l: __turbopack_load__, j: __turbopack_dynamic__, P: __turbopack_resolve_absolute_path__, U: __turbopack_relative_url__, R: __turbopack_resolve_module_id_path__, b: __turbopack_worker_blob_url__, g: global, __dirname, k: __turbopack_refresh__, m: module, z: __turbopack_require_stub__ } = __turbopack_context__;
 {
 __turbopack_esm__({
-    "default": (()=>__TURBOPACK__default__export__)
+    "useMediaCapture": (()=>useMediaCapture)
 });
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/next/dist/compiled/react/jsx-dev-runtime.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/next/dist/compiled/react/index.js [app-client] (ecmascript)");
-// import { Card, CardContent } from "../../components/ui/card";
-// import { Button } from "../../components/ui/button";
-// import { Video, VideoOff } from "lucide-react";
 var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$services$2f$geminiWebSocket$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/app/services/geminiWebSocket.ts [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$js$2d$base64$2f$base64$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/js-base64/base64.mjs [app-client] (ecmascript)");
-;
 var _s = __turbopack_refresh__.signature();
-"use client";
 ;
 ;
 ;
-const CameraPreview = /*#__PURE__*/ _s((0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["forwardRef"])(_c = _s(({ onTranscription }, ref)=>{
+const useMediaCapture = (onTranscription)=>{
     _s();
     const videoRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRef"])(null);
     const audioContextRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRef"])(null);
@@ -549,8 +543,9 @@ const CameraPreview = /*#__PURE__*/ _s((0, __TURBOPACK__imported__module__$5b$pr
     const [isModelSpeaking, setIsModelSpeaking] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
     const [outputAudioLevel, setOutputAudioLevel] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(0);
     const [connectionStatus, setConnectionStatus] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])('disconnected');
+    const [isAudioOnly, setIsAudioOnly] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
     const cleanupAudio = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useCallback"])({
-        "CameraPreview.useCallback[cleanupAudio]": ()=>{
+        "useMediaCapture.useCallback[cleanupAudio]": ()=>{
             if (audioWorkletNodeRef.current) {
                 audioWorkletNodeRef.current.disconnect();
                 audioWorkletNodeRef.current = null;
@@ -560,19 +555,58 @@ const CameraPreview = /*#__PURE__*/ _s((0, __TURBOPACK__imported__module__$5b$pr
                 audioContextRef.current = null;
             }
         }
-    }["CameraPreview.useCallback[cleanupAudio]"], []);
+    }["useMediaCapture.useCallback[cleanupAudio]"], []);
     const cleanupWebSocket = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useCallback"])({
-        "CameraPreview.useCallback[cleanupWebSocket]": ()=>{
+        "useMediaCapture.useCallback[cleanupWebSocket]": ()=>{
             if (geminiWsRef.current) {
                 geminiWsRef.current.disconnect();
                 geminiWsRef.current = null;
             }
         }
-    }["CameraPreview.useCallback[cleanupWebSocket]"], []);
-    // Simplify sendAudioData to just send continuously
+    }["useMediaCapture.useCallback[cleanupWebSocket]"], []);
     const sendAudioData = (b64Data)=>{
         if (!geminiWsRef.current) return;
         geminiWsRef.current.sendMediaChunk(b64Data, "audio/pcm");
+    };
+    const startAudioOnly = async ()=>{
+        if (isStreaming) return;
+        try {
+            const audioStream = await navigator.mediaDevices.getUserMedia({
+                audio: {
+                    sampleRate: 16000,
+                    channelCount: 1,
+                    echoCancellation: true,
+                    autoGainControl: true,
+                    noiseSuppression: true
+                }
+            });
+            audioContextRef.current = new AudioContext({
+                sampleRate: 16000
+            });
+            setStream(audioStream);
+            setIsStreaming(true);
+            setIsAudioOnly(true);
+        } catch (err) {
+            console.error('Error accessing audio device:', err);
+            cleanupAudio();
+        }
+    };
+    const toggleAudio = async ()=>{
+        if (isStreaming) {
+            setIsStreaming(false);
+            cleanupWebSocket();
+            cleanupAudio();
+            if (stream) {
+                stream.getTracks().forEach((track)=>track.stop());
+            }
+            if (videoRef.current) {
+                videoRef.current.srcObject = null;
+            }
+            setStream(null);
+            setIsAudioOnly(false);
+        } else {
+            await startAudioOnly();
+        }
     };
     const toggleCamera = async ()=>{
         if (isStreaming && stream) {
@@ -584,6 +618,7 @@ const CameraPreview = /*#__PURE__*/ _s((0, __TURBOPACK__imported__module__$5b$pr
                 videoRef.current.srcObject = null;
             }
             setStream(null);
+            setIsAudioOnly(false);
         } else {
             try {
                 const videoStream = await navigator.mediaDevices.getUserMedia({
@@ -612,48 +647,57 @@ const CameraPreview = /*#__PURE__*/ _s((0, __TURBOPACK__imported__module__$5b$pr
                 ]);
                 setStream(combinedStream);
                 setIsStreaming(true);
+                setIsAudioOnly(false);
             } catch (err) {
                 console.error('Error accessing media devices:', err);
                 cleanupAudio();
             }
         }
     };
-    // Expose the toggleCamera function to the parent
-    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useImperativeHandle"])(ref, {
-        "CameraPreview.useImperativeHandle": ()=>({
-                toggleCamera
-            })
-    }["CameraPreview.useImperativeHandle"]);
-    // Initialize WebSocket connection
+    const captureAndSendImage = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useCallback"])({
+        "useMediaCapture.useCallback[captureAndSendImage]": ()=>{
+            if (!videoRef.current || !videoCanvasRef.current || !geminiWsRef.current) return;
+            const canvas = videoCanvasRef.current;
+            const context = canvas.getContext('2d');
+            if (!context) return;
+            canvas.width = videoRef.current.videoWidth;
+            canvas.height = videoRef.current.videoHeight;
+            context.drawImage(videoRef.current, 0, 0);
+            const imageData = canvas.toDataURL('image/jpeg', 0.8);
+            const b64Data = imageData.split(',')[1];
+            geminiWsRef.current.sendMediaChunk(b64Data, "image/jpeg");
+        }
+    }["useMediaCapture.useCallback[captureAndSendImage]"], []);
+    // WebSocket connection effect
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
-        "CameraPreview.useEffect": ()=>{
+        "useMediaCapture.useEffect": ()=>{
             if (!isStreaming) {
                 setConnectionStatus('disconnected');
                 return;
             }
             setConnectionStatus('connecting');
             geminiWsRef.current = new __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$services$2f$geminiWebSocket$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["GeminiWebSocket"]({
-                "CameraPreview.useEffect": (text)=>{
+                "useMediaCapture.useEffect": (text)=>{
                     console.log("Received from Gemini:", text);
                 }
-            }["CameraPreview.useEffect"], {
-                "CameraPreview.useEffect": ()=>{
+            }["useMediaCapture.useEffect"], {
+                "useMediaCapture.useEffect": ()=>{
                     console.log("[Camera] WebSocket setup complete, starting media capture");
                     setIsWebSocketReady(true);
                     setConnectionStatus('connected');
                 }
-            }["CameraPreview.useEffect"], {
-                "CameraPreview.useEffect": (isPlaying)=>{
+            }["useMediaCapture.useEffect"], {
+                "useMediaCapture.useEffect": (isPlaying)=>{
                     setIsModelSpeaking(isPlaying);
                 }
-            }["CameraPreview.useEffect"], {
-                "CameraPreview.useEffect": (level)=>{
+            }["useMediaCapture.useEffect"], {
+                "useMediaCapture.useEffect": (level)=>{
                     setOutputAudioLevel(level);
                 }
-            }["CameraPreview.useEffect"], onTranscription);
+            }["useMediaCapture.useEffect"], onTranscription);
             geminiWsRef.current.connect();
             return ({
-                "CameraPreview.useEffect": ()=>{
+                "useMediaCapture.useEffect": ()=>{
                     if (imageIntervalRef.current) {
                         clearInterval(imageIntervalRef.current);
                         imageIntervalRef.current = null;
@@ -662,40 +706,41 @@ const CameraPreview = /*#__PURE__*/ _s((0, __TURBOPACK__imported__module__$5b$pr
                     setIsWebSocketReady(false);
                     setConnectionStatus('disconnected');
                 }
-            })["CameraPreview.useEffect"];
+            })["useMediaCapture.useEffect"];
         }
-    }["CameraPreview.useEffect"], [
+    }["useMediaCapture.useEffect"], [
         isStreaming,
         onTranscription,
         cleanupWebSocket
     ]);
-    // Start image capture only after WebSocket is ready
+    // Image capture interval effect
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
-        "CameraPreview.useEffect": ()=>{
+        "useMediaCapture.useEffect": ()=>{
             if (!isStreaming || !isWebSocketReady) return;
             console.log("[Camera] Starting image capture interval");
             imageIntervalRef.current = setInterval(captureAndSendImage, 1000);
             return ({
-                "CameraPreview.useEffect": ()=>{
+                "useMediaCapture.useEffect": ()=>{
                     if (imageIntervalRef.current) {
                         clearInterval(imageIntervalRef.current);
                         imageIntervalRef.current = null;
                     }
                 }
-            })["CameraPreview.useEffect"];
+            })["useMediaCapture.useEffect"];
         }
-    }["CameraPreview.useEffect"], [
+    }["useMediaCapture.useEffect"], [
         isStreaming,
-        isWebSocketReady
+        isWebSocketReady,
+        captureAndSendImage
     ]);
-    // Update audio processing setup
+    // Audio processing setup effect
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
-        "CameraPreview.useEffect": ()=>{
+        "useMediaCapture.useEffect": ()=>{
             if (!isStreaming || !stream || !audioContextRef.current || !isWebSocketReady || isAudioSetup || setupInProgressRef.current) return;
             let isActive = true;
             setupInProgressRef.current = true;
             const setupAudioProcessing = {
-                "CameraPreview.useEffect.setupAudioProcessing": async ()=>{
+                "useMediaCapture.useEffect.setupAudioProcessing": async ()=>{
                     try {
                         const ctx = audioContextRef.current;
                         if (!ctx || ctx.state === 'closed' || !isActive) {
@@ -723,7 +768,7 @@ const CameraPreview = /*#__PURE__*/ _s((0, __TURBOPACK__imported__module__$5b$pr
                         });
                         const source = ctx.createMediaStreamSource(stream);
                         audioWorkletNodeRef.current.port.onmessage = ({
-                            "CameraPreview.useEffect.setupAudioProcessing": (event)=>{
+                            "useMediaCapture.useEffect.setupAudioProcessing": (event)=>{
                                 if (!isActive || isModelSpeaking) return;
                                 const { pcmData, level } = event.data;
                                 setAudioLevel(level);
@@ -731,33 +776,24 @@ const CameraPreview = /*#__PURE__*/ _s((0, __TURBOPACK__imported__module__$5b$pr
                                 const b64Data = __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$js$2d$base64$2f$base64$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Base64"].fromUint8Array(pcmArray);
                                 sendAudioData(b64Data);
                             }
-                        })["CameraPreview.useEffect.setupAudioProcessing"];
+                        })["useMediaCapture.useEffect.setupAudioProcessing"];
                         source.connect(audioWorkletNodeRef.current);
                         setIsAudioSetup(true);
                         setupInProgressRef.current = false;
-                        return ({
-                            "CameraPreview.useEffect.setupAudioProcessing": ()=>{
-                                source.disconnect();
-                                if (audioWorkletNodeRef.current) {
-                                    audioWorkletNodeRef.current.disconnect();
-                                }
-                                setIsAudioSetup(false);
-                            }
-                        })["CameraPreview.useEffect.setupAudioProcessing"];
                     } catch (error) {
                         if (isActive) {
-                            console.log(error);
+                            console.error(error);
                             cleanupAudio();
                             setIsAudioSetup(false);
                         }
                         setupInProgressRef.current = false;
                     }
                 }
-            }["CameraPreview.useEffect.setupAudioProcessing"];
+            }["useMediaCapture.useEffect.setupAudioProcessing"];
             console.log("[Camera] Starting audio processing setup");
             setupAudioProcessing();
             return ({
-                "CameraPreview.useEffect": ()=>{
+                "useMediaCapture.useEffect": ()=>{
                     isActive = false;
                     setIsAudioSetup(false);
                     setupInProgressRef.current = false;
@@ -766,30 +802,64 @@ const CameraPreview = /*#__PURE__*/ _s((0, __TURBOPACK__imported__module__$5b$pr
                         audioWorkletNodeRef.current = null;
                     }
                 }
-            })["CameraPreview.useEffect"];
+            })["useMediaCapture.useEffect"];
         }
-    }["CameraPreview.useEffect"], [
+    }["useMediaCapture.useEffect"], [
         isStreaming,
         stream,
         isWebSocketReady,
-        isModelSpeaking
+        isModelSpeaking,
+        cleanupAudio
     ]);
-    // Capture and send image
-    const captureAndSendImage = ()=>{
-        if (!videoRef.current || !videoCanvasRef.current || !geminiWsRef.current) return;
-        const canvas = videoCanvasRef.current;
-        const context = canvas.getContext('2d');
-        if (!context) return;
-        // Set canvas size to match video
-        canvas.width = videoRef.current.videoWidth;
-        canvas.height = videoRef.current.videoHeight;
-        // Draw video frame to canvas
-        context.drawImage(videoRef.current, 0, 0);
-        // Convert to base64 and send
-        const imageData = canvas.toDataURL('image/jpeg', 0.8);
-        const b64Data = imageData.split(',')[1];
-        geminiWsRef.current.sendMediaChunk(b64Data, "image/jpeg");
+    return {
+        videoRef,
+        videoCanvasRef,
+        isStreaming,
+        isAudioOnly,
+        connectionStatus,
+        audioLevel,
+        isModelSpeaking,
+        outputAudioLevel,
+        toggleCamera,
+        toggleAudio
     };
+};
+_s(useMediaCapture, "mrOIa8DnzAYjc24O9jt7F4tHn9Q=");
+if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {
+    __turbopack_refresh__.registerExports(module, globalThis.$RefreshHelpers$);
+}
+}}),
+"[project]/app/components/CameraPreview.tsx [app-client] (ecmascript)": ((__turbopack_context__) => {
+"use strict";
+
+var { r: __turbopack_require__, f: __turbopack_module_context__, i: __turbopack_import__, s: __turbopack_esm__, v: __turbopack_export_value__, n: __turbopack_export_namespace__, c: __turbopack_cache__, M: __turbopack_modules__, l: __turbopack_load__, j: __turbopack_dynamic__, P: __turbopack_resolve_absolute_path__, U: __turbopack_relative_url__, R: __turbopack_resolve_module_id_path__, b: __turbopack_worker_blob_url__, g: global, __dirname, k: __turbopack_refresh__, m: module, z: __turbopack_require_stub__ } = __turbopack_context__;
+{
+__turbopack_esm__({
+    "default": (()=>__TURBOPACK__default__export__)
+});
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/next/dist/compiled/react/jsx-dev-runtime.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/next/dist/compiled/react/index.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$hooks$2f$useMediaCapture$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/app/hooks/useMediaCapture.ts [app-client] (ecmascript)");
+;
+var _s = __turbopack_refresh__.signature();
+"use client";
+;
+;
+const CameraPreview = /*#__PURE__*/ _s((0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["forwardRef"])(_c = _s(({ onTranscription }, ref)=>{
+    _s();
+    const { videoRef, videoCanvasRef, isStreaming, isAudioOnly, connectionStatus, audioLevel, isModelSpeaking, outputAudioLevel, toggleCamera, toggleAudio } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$hooks$2f$useMediaCapture$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useMediaCapture"])(onTranscription);
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useImperativeHandle"])(ref, {
+        "CameraPreview.useImperativeHandle": ()=>({
+                toggleCamera,
+                toggleAudio,
+                isStreaming,
+                isAudioOnly,
+                connectionStatus,
+                audioLevel,
+                isModelSpeaking,
+                outputAudioLevel
+            })
+    }["CameraPreview.useImperativeHandle"]);
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         className: "space-y-4",
         children: [
@@ -803,7 +873,7 @@ const CameraPreview = /*#__PURE__*/ _s((0, __TURBOPACK__imported__module__$5b$pr
                         className: "w-[200px] h-[133px] bg-muted rounded-lg overflow-hidden"
                     }, void 0, false, {
                         fileName: "[project]/app/components/CameraPreview.tsx",
-                        lineNumber: 285,
+                        lineNumber: 50,
                         columnNumber: 11
                     }, this),
                     isStreaming && connectionStatus !== 'connected' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -815,7 +885,7 @@ const CameraPreview = /*#__PURE__*/ _s((0, __TURBOPACK__imported__module__$5b$pr
                                     className: "animate-spin rounded-full h-8 w-8 border-b-2 border-white mx-auto"
                                 }, void 0, false, {
                                     fileName: "[project]/app/components/CameraPreview.tsx",
-                                    lineNumber: 296,
+                                    lineNumber: 61,
                                     columnNumber: 17
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -823,7 +893,7 @@ const CameraPreview = /*#__PURE__*/ _s((0, __TURBOPACK__imported__module__$5b$pr
                                     children: connectionStatus === 'connecting' ? 'Connecting to Gemini...' : 'Disconnected'
                                 }, void 0, false, {
                                     fileName: "[project]/app/components/CameraPreview.tsx",
-                                    lineNumber: 297,
+                                    lineNumber: 62,
                                     columnNumber: 17
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -831,24 +901,24 @@ const CameraPreview = /*#__PURE__*/ _s((0, __TURBOPACK__imported__module__$5b$pr
                                     children: "Please wait while we establish a secure connection"
                                 }, void 0, false, {
                                     fileName: "[project]/app/components/CameraPreview.tsx",
-                                    lineNumber: 300,
+                                    lineNumber: 65,
                                     columnNumber: 17
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/components/CameraPreview.tsx",
-                            lineNumber: 295,
+                            lineNumber: 60,
                             columnNumber: 15
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/app/components/CameraPreview.tsx",
-                        lineNumber: 294,
+                        lineNumber: 59,
                         columnNumber: 13
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/components/CameraPreview.tsx",
-                lineNumber: 284,
+                lineNumber: 49,
                 columnNumber: 9
             }, this),
             isStreaming && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -861,12 +931,12 @@ const CameraPreview = /*#__PURE__*/ _s((0, __TURBOPACK__imported__module__$5b$pr
                     }
                 }, void 0, false, {
                     fileName: "[project]/app/components/CameraPreview.tsx",
-                    lineNumber: 324,
+                    lineNumber: 74,
                     columnNumber: 13
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/app/components/CameraPreview.tsx",
-                lineNumber: 323,
+                lineNumber: 73,
                 columnNumber: 11
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("canvas", {
@@ -874,17 +944,26 @@ const CameraPreview = /*#__PURE__*/ _s((0, __TURBOPACK__imported__module__$5b$pr
                 className: "hidden"
             }, void 0, false, {
                 fileName: "[project]/app/components/CameraPreview.tsx",
-                lineNumber: 333,
+                lineNumber: 83,
                 columnNumber: 9
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/app/components/CameraPreview.tsx",
-        lineNumber: 283,
+        lineNumber: 48,
         columnNumber: 7
     }, this);
-}, "dvk6IeQhHQM1T9GpVAa4DvUHo9I=")), "dvk6IeQhHQM1T9GpVAa4DvUHo9I=");
+}, "Gvizc/cnR6pRoDWkxxJuC0Z9VGQ=", false, function() {
+    return [
+        __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$hooks$2f$useMediaCapture$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useMediaCapture"]
+    ];
+})), "Gvizc/cnR6pRoDWkxxJuC0Z9VGQ=", false, function() {
+    return [
+        __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$hooks$2f$useMediaCapture$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useMediaCapture"]
+    ];
+});
 _c1 = CameraPreview;
+CameraPreview.displayName = 'CameraPreview';
 const __TURBOPACK__default__export__ = CameraPreview;
 var _c, _c1;
 __turbopack_refresh__.register(_c, "CameraPreview$forwardRef");
@@ -1069,7 +1148,6 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$scroll$2
 var __TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$avatar$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/components/ui/avatar.tsx [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$mic$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Mic$3e$__ = __turbopack_import__("[project]/node_modules/lucide-react/dist/esm/icons/mic.js [app-client] (ecmascript) <export default as Mic>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$camera$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Camera$3e$__ = __turbopack_import__("[project]/node_modules/lucide-react/dist/esm/icons/camera.js [app-client] (ecmascript) <export default as Camera>");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$monitor$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Monitor$3e$__ = __turbopack_import__("[project]/node_modules/lucide-react/dist/esm/icons/monitor.js [app-client] (ecmascript) <export default as Monitor>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$arrow$2d$up$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ArrowUp$3e$__ = __turbopack_import__("[project]/node_modules/lucide-react/dist/esm/icons/arrow-up.js [app-client] (ecmascript) <export default as ArrowUp>");
 ;
 var _s = __turbopack_refresh__.signature();
@@ -1215,6 +1293,8 @@ _c1 = GeminiMessage;
 function Home() {
     _s();
     const [messages, setMessages] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])([]);
+    const [isAudioActive, setIsAudioActive] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
+    const [isCameraActive, setIsCameraActive] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
     const cameraRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRef"])(null);
     const handleTranscription = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useCallback"])({
         "Home.useCallback[handleTranscription]": (transcription)=>{
@@ -1232,6 +1312,27 @@ function Home() {
     const handleToggleCamera = ()=>{
         if (cameraRef.current) {
             cameraRef.current.toggleCamera();
+            if (!isCameraActive && !isAudioActive) {
+                // If turning on camera from completely off state
+                setIsAudioActive(true);
+                setIsCameraActive(true);
+            } else {
+                setIsCameraActive(!isCameraActive);
+                if (isCameraActive) {
+                    // If turning off camera, also turn off audio
+                    setIsAudioActive(false);
+                }
+            }
+        }
+    };
+    const handleToggleAudio = ()=>{
+        if (cameraRef.current) {
+            cameraRef.current.toggleAudio();
+            setIsAudioActive(!isAudioActive);
+            if (isCameraActive && isAudioActive) {
+                // If turning off audio while camera is on, also turn off camera
+                setIsCameraActive(false);
+            }
         }
     };
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1244,12 +1345,12 @@ function Home() {
                     children: "Health Innovators AI Chatbot"
                 }, void 0, false, {
                     fileName: "[project]/app/page.tsx",
-                    lineNumber: 62,
+                    lineNumber: 87,
                     columnNumber: 7
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/app/page.tsx",
-                lineNumber: 61,
+                lineNumber: 86,
                 columnNumber: 5
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("main", {
@@ -1264,7 +1365,7 @@ function Home() {
                                 children: "Health Innovators AI Chatbot"
                             }, void 0, false, {
                                 fileName: "[project]/app/page.tsx",
-                                lineNumber: 74,
+                                lineNumber: 99,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$ui$2f$scroll$2d$area$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["ScrollArea"], {
@@ -1277,26 +1378,26 @@ function Home() {
                                                 text: "Hi! I'm Gemini. I can see and hear you. Let's chat!"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/page.tsx",
-                                                lineNumber: 81,
+                                                lineNumber: 107,
                                                 columnNumber: 15
                                             }, this),
                                             messages.map((message, index)=>message.type === 'human' ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(HumanMessage, {
                                                     text: message.text
                                                 }, `msg-${index}`, false, {
                                                     fileName: "[project]/app/page.tsx",
-                                                    lineNumber: 84,
+                                                    lineNumber: 110,
                                                     columnNumber: 19
                                                 }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(GeminiMessage, {
                                                     text: message.text
                                                 }, `msg-${index}`, false, {
                                                     fileName: "[project]/app/page.tsx",
-                                                    lineNumber: 86,
+                                                    lineNumber: 112,
                                                     columnNumber: 19
                                                 }, this))
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/page.tsx",
-                                        lineNumber: 80,
+                                        lineNumber: 106,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1306,18 +1407,18 @@ function Home() {
                                             onTranscription: handleTranscription
                                         }, void 0, false, {
                                             fileName: "[project]/app/page.tsx",
-                                            lineNumber: 92,
+                                            lineNumber: 118,
                                             columnNumber: 15
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/app/page.tsx",
-                                        lineNumber: 91,
+                                        lineNumber: 117,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/page.tsx",
-                                lineNumber: 79,
+                                lineNumber: 104,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1331,110 +1432,97 @@ function Home() {
                                             className: "w-full p-3 rounded-xl bg-zinc-100 focus:outline-none focus:ring-0"
                                         }, void 0, false, {
                                             fileName: "[project]/app/page.tsx",
-                                            lineNumber: 102,
+                                            lineNumber: 127,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                             className: "flex w-full",
                                             children: [
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                                    className: "px-3 text-2xl font-bold text-zinc-400 rounded-full hover:text-black ",
+                                                    className: `px-3 text-2xl font-bold rounded-full transition-colors ${isAudioActive ? 'text-black' : 'text-zinc-400 hover:text-black'}`,
+                                                    onClick: handleToggleAudio,
                                                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$mic$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Mic$3e$__["Mic"], {
                                                         size: 20
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/page.tsx",
-                                                        lineNumber: 109,
+                                                        lineNumber: 141,
                                                         columnNumber: 19
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/page.tsx",
-                                                    lineNumber: 108,
+                                                    lineNumber: 135,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                                    className: "px-3 text-2xl font-bold text-zinc-400 rounded-full hover:text-black ",
+                                                    className: `px-3 text-2xl font-bold rounded-full transition-colors ${isCameraActive ? 'text-black' : 'text-zinc-400 hover:text-black'}`,
                                                     onClick: handleToggleCamera,
                                                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$camera$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Camera$3e$__["Camera"], {
                                                         size: 20
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/page.tsx",
-                                                        lineNumber: 115,
+                                                        lineNumber: 150,
                                                         columnNumber: 19
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/page.tsx",
-                                                    lineNumber: 111,
+                                                    lineNumber: 144,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                                    className: "px-3 text-2xl font-boldte text-zinc-400 rounded-full hover:text-black",
-                                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$monitor$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Monitor$3e$__["Monitor"], {
-                                                        size: 20
-                                                    }, void 0, false, {
-                                                        fileName: "[project]/app/page.tsx",
-                                                        lineNumber: 118,
-                                                        columnNumber: 19
-                                                    }, this)
-                                                }, void 0, false, {
-                                                    fileName: "[project]/app/page.tsx",
-                                                    lineNumber: 117,
-                                                    columnNumber: 17
-                                                }, this),
-                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                                    className: "ml-auto p-2 text-2xl font-bold border-zinc-400 border text-zinc-400 rounded-full hover:text-black hover:border-black ",
+                                                    className: "ml-auto p-2 text-2xl font-bold border border-zinc-400 text-zinc-400 rounded-full hover:text-black hover:border-black",
                                                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$arrow$2d$up$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ArrowUp$3e$__["ArrowUp"], {
                                                         size: 32
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/page.tsx",
-                                                        lineNumber: 121,
+                                                        lineNumber: 158,
                                                         columnNumber: 19
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/page.tsx",
-                                                    lineNumber: 120,
+                                                    lineNumber: 157,
                                                     columnNumber: 17
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/app/page.tsx",
-                                            lineNumber: 107,
+                                            lineNumber: 133,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/page.tsx",
-                                    lineNumber: 101,
+                                    lineNumber: 125,
                                     columnNumber: 13
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/app/page.tsx",
-                                lineNumber: 100,
+                                lineNumber: 124,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/page.tsx",
-                        lineNumber: 72,
+                        lineNumber: 97,
                         columnNumber: 9
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/app/page.tsx",
-                    lineNumber: 71,
+                    lineNumber: 96,
                     columnNumber: 7
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/app/page.tsx",
-                lineNumber: 69,
+                lineNumber: 94,
                 columnNumber: 5
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/app/page.tsx",
-        lineNumber: 59,
+        lineNumber: 84,
         columnNumber: 5
     }, this);
 }
-_s(Home, "wHvQGHF78DyxMiIR30xoGwwRgzg=");
+_s(Home, "aKe8gNZeOe8yjrKNNEWoL1UpCjw=");
 _c2 = Home;
 var _c, _c1, _c2;
 __turbopack_refresh__.register(_c, "HumanMessage");
@@ -1451,4 +1539,4 @@ var { r: __turbopack_require__, f: __turbopack_module_context__, i: __turbopack_
 }}),
 }]);
 
-//# sourceMappingURL=_fdbaa8._.js.map
+//# sourceMappingURL=_a24de8._.js.map

@@ -42,7 +42,10 @@ const GeminiMessage = ({ text }: { text: string }) => (
 );
 
 export default function Home() {
+  
   const [messages, setMessages] = useState<{ type: 'human' | 'gemini', text: string }[]>([]);
+  const [isAudioActive, setIsAudioActive] = useState(false);
+  const [isCameraActive, setIsCameraActive] = useState(false);
   const cameraRef = useRef<any>(null);
 
   const handleTranscription = useCallback((transcription: string) => {
@@ -52,6 +55,28 @@ export default function Home() {
   const handleToggleCamera = () => {
     if (cameraRef.current) {
       cameraRef.current.toggleCamera();
+      if (!isCameraActive && !isAudioActive) {
+        // If turning on camera from completely off state
+        setIsAudioActive(true);
+        setIsCameraActive(true);
+      } else {
+        setIsCameraActive(!isCameraActive);
+        if (isCameraActive) {
+          // If turning off camera, also turn off audio
+          setIsAudioActive(false);
+        }
+      }
+    }
+  };
+
+  const handleToggleAudio = () => {
+    if (cameraRef.current) {
+      cameraRef.current.toggleAudio();
+      setIsAudioActive(!isAudioActive);
+      if (isCameraActive && isAudioActive) {
+        // If turning off audio while camera is on, also turn off camera
+        setIsCameraActive(false);
+      }
     }
   };
 
@@ -77,6 +102,7 @@ export default function Home() {
 
           
           <ScrollArea className="flex-1 p-6 w-10/12">
+
             <div className="space-y-4">
               <GeminiMessage text="Hi! I'm Gemini. I can see and hear you. Let's chat!" />
               {messages.map((message, index) =>
@@ -91,35 +117,47 @@ export default function Home() {
             <div className='absolute bottom-4 right-4 z-10'> 
               <CameraPreview ref={cameraRef} onTranscription={handleTranscription} />
             </div>
-
+            
           </ScrollArea>
           
-          
-
           {/* Input Area */}
           <div className="p-4 bg-zinc-100 rounded-xl mb-9 w-10/12">
             <div className="flex flex-col items-center">
+
               <input
                 type="text"
                 placeholder="Type your message..."
                 className="w-full p-3 rounded-xl bg-zinc-100 focus:outline-none focus:ring-0"
               />
+
               <div className="flex w-full"> 
-                <button className="px-3 text-2xl font-bold text-zinc-400 rounded-full hover:text-black ">
+
+                <button 
+                  className={`px-3 text-2xl font-bold rounded-full transition-colors ${
+                    isAudioActive ? 'text-black' : 'text-zinc-400 hover:text-black'
+                  }`}
+                  onClick={handleToggleAudio}
+                >
                   <Mic size={20} />
                 </button>
+
                 <button 
-                  className="px-3 text-2xl font-bold text-zinc-400 rounded-full hover:text-black "
+                  className={`px-3 text-2xl font-bold rounded-full transition-colors ${
+                    isCameraActive ? 'text-black' : 'text-zinc-400 hover:text-black'
+                  }`}
                   onClick={handleToggleCamera}
                 >
                   <Camera size={20} />
                 </button>
-                <button className="px-3 text-2xl font-boldte text-zinc-400 rounded-full hover:text-black">
+
+                {/* <button className="px-3 text-2xl font-bold text-zinc-400 rounded-full hover:text-green">
                   <Monitor size={20} />
-                </button>
-                <button className="ml-auto p-2 text-2xl font-bold border-zinc-400 border text-zinc-400 rounded-full hover:text-black hover:border-black ">
+                </button> */}
+                
+                <button className="ml-auto p-2 text-2xl font-bold border border-zinc-400 text-zinc-400 rounded-full hover:text-black hover:border-black">
                   <ArrowUp size={32} />
                 </button>
+
               </div>
               
             </div>

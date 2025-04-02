@@ -8,505 +8,93 @@ const mod = __turbopack_external_require__("next/dist/compiled/next-server/app-p
 
 module.exports = mod;
 }}),
-"[project]/app/services/transcriptionService.ts [app-ssr] (ecmascript)": ((__turbopack_context__) => {
+"[project]/app/hooks/useMediaStream.ts [app-ssr] (ecmascript)": ((__turbopack_context__) => {
 "use strict";
 
 var { r: __turbopack_require__, f: __turbopack_module_context__, i: __turbopack_import__, s: __turbopack_esm__, v: __turbopack_export_value__, n: __turbopack_export_namespace__, c: __turbopack_cache__, M: __turbopack_modules__, l: __turbopack_load__, j: __turbopack_dynamic__, P: __turbopack_resolve_absolute_path__, U: __turbopack_relative_url__, R: __turbopack_resolve_module_id_path__, b: __turbopack_worker_blob_url__, g: global, __dirname, x: __turbopack_external_require__, y: __turbopack_external_import__, z: __turbopack_require_stub__ } = __turbopack_context__;
 {
 __turbopack_esm__({
-    "TranscriptionService": (()=>TranscriptionService)
+    "useMediaStream": (()=>useMediaStream)
 });
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$google$2f$generative$2d$ai$2f$dist$2f$index$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/@google/generative-ai/dist/index.mjs [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react.js [app-ssr] (ecmascript)");
 ;
-const genAI = new __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$google$2f$generative$2d$ai$2f$dist$2f$index$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["GoogleGenerativeAI"](("TURBOPACK compile-time value", "AIzaSyBE_d4CulcTfFyeiIdUO41ZOGVmWMe1HeI") || '');
-const MODEL_NAME = "gemini-1.5-flash-8b";
-class TranscriptionService {
-    model;
-    constructor(){
-        this.model = genAI.getGenerativeModel({
-            model: MODEL_NAME
-        });
-    }
-    async transcribeAudio(audioBase64, mimeType = "audio/wav") {
+const useMediaStream = (onTranscription)=>{
+    const [isVideoOn, setIsVideoOn] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
+    const videoRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRef"])(null);
+    const mediaStreamRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRef"])(null);
+    const mediaRecorderRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRef"])(null);
+    const chunksRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRef"])([]);
+    const startCamera = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCallback"])(async ()=>{
         try {
-            const result = await this.model.generateContent([
-                {
-                    inlineData: {
-                        mimeType: mimeType,
-                        data: audioBase64
-                    }
-                },
-                {
-                    text: "Please transcribe the spoken language in this audio accurately. Ignore any background noise or non-speech sounds."
-                }
-            ]);
-            return result.response.text();
-        } catch (error) {
-            console.error("Transcription error:", error);
-            throw error;
-        }
-    }
-}
-}}),
-"[project]/app/utils/audioUtils.ts [app-ssr] (ecmascript)": ((__turbopack_context__) => {
-"use strict";
-
-var { r: __turbopack_require__, f: __turbopack_module_context__, i: __turbopack_import__, s: __turbopack_esm__, v: __turbopack_export_value__, n: __turbopack_export_namespace__, c: __turbopack_cache__, M: __turbopack_modules__, l: __turbopack_load__, j: __turbopack_dynamic__, P: __turbopack_resolve_absolute_path__, U: __turbopack_relative_url__, R: __turbopack_resolve_module_id_path__, b: __turbopack_worker_blob_url__, g: global, __dirname, x: __turbopack_external_require__, y: __turbopack_external_import__, z: __turbopack_require_stub__ } = __turbopack_context__;
-{
-// Helper function to download and analyze WAV data
-__turbopack_esm__({
-    "pcmToWav": (()=>pcmToWav)
-});
-function debugSaveWav(wavData, filename = 'debug.wav') {
-    const byteString = atob(wavData);
-    const bytes = new Uint8Array(byteString.length);
-    for(let i = 0; i < byteString.length; i++){
-        bytes[i] = byteString.charCodeAt(i);
-    }
-    // Create blob and download
-    const blob = new Blob([
-        bytes
-    ], {
-        type: 'audio/wav'
-    });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = filename;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-}
-function pcmToWav(pcmData, sampleRate = 24000) {
-    return new Promise((resolve, reject)=>{
-        try {
-            // Decode base64 PCM data
-            const binaryString = atob(pcmData);
-            const pcmBytes = new Uint8Array(binaryString.length);
-            for(let i = 0; i < binaryString.length; i++){
-                pcmBytes[i] = binaryString.charCodeAt(i);
-            }
-            // Convert bytes to samples (assuming 16-bit PCM)
-            const samples = new Int16Array(pcmBytes.buffer);
-            // Create WAV header
-            const wavHeader = new ArrayBuffer(44);
-            const view = new DataView(wavHeader);
-            const pcmByteLength = samples.length * 2; // 16-bit = 2 bytes per sample
-            // "RIFF" chunk descriptor
-            view.setUint8(0, 'R'.charCodeAt(0));
-            view.setUint8(1, 'I'.charCodeAt(0));
-            view.setUint8(2, 'F'.charCodeAt(0));
-            view.setUint8(3, 'F'.charCodeAt(0));
-            // File length (header size + data size)
-            view.setUint32(4, 36 + pcmByteLength, true);
-            // "WAVE" format
-            view.setUint8(8, 'W'.charCodeAt(0));
-            view.setUint8(9, 'A'.charCodeAt(0));
-            view.setUint8(10, 'V'.charCodeAt(0));
-            view.setUint8(11, 'E'.charCodeAt(0));
-            // "fmt " sub-chunk
-            view.setUint8(12, 'f'.charCodeAt(0));
-            view.setUint8(13, 'm'.charCodeAt(0));
-            view.setUint8(14, 't'.charCodeAt(0));
-            view.setUint8(15, ' '.charCodeAt(0));
-            // Sub-chunk size
-            view.setUint32(16, 16, true);
-            // Audio format (PCM = 1)
-            view.setUint16(20, 1, true);
-            // Number of channels
-            view.setUint16(22, 1, true);
-            // Sample rate
-            view.setUint32(24, sampleRate, true);
-            // Byte rate
-            view.setUint32(28, sampleRate * 2, true);
-            // Block align
-            view.setUint16(32, 2, true);
-            // Bits per sample
-            view.setUint16(34, 16, true);
-            // "data" sub-chunk
-            view.setUint8(36, 'd'.charCodeAt(0));
-            view.setUint8(37, 'a'.charCodeAt(0));
-            view.setUint8(38, 't'.charCodeAt(0));
-            view.setUint8(39, 'a'.charCodeAt(0));
-            // Data size
-            view.setUint32(40, pcmByteLength, true);
-            // Create final buffer
-            const wavBuffer = new ArrayBuffer(wavHeader.byteLength + pcmByteLength);
-            const wavBytes = new Uint8Array(wavBuffer);
-            // Copy header and PCM data
-            wavBytes.set(new Uint8Array(wavHeader), 0);
-            wavBytes.set(new Uint8Array(samples.buffer), wavHeader.byteLength);
-            // Use Blob and FileReader to convert to base64
-            const blob = new Blob([
-                wavBytes
-            ], {
-                type: 'audio/wav'
+            const stream = await navigator.mediaDevices.getUserMedia({
+                video: true,
+                audio: true
             });
-            const reader = new FileReader();
-            reader.onloadend = ()=>{
-                const base64data = reader.result?.toString().split(',')[1];
-                if (base64data) {
-                    resolve(base64data);
-                } else {
-                    reject(new Error("Failed to convert WAV to base64"));
+            if (videoRef.current) {
+                videoRef.current.srcObject = stream;
+            }
+            mediaStreamRef.current = stream;
+            setIsVideoOn(true);
+            // Set up MediaRecorder
+            const mediaRecorder = new MediaRecorder(stream);
+            mediaRecorderRef.current = mediaRecorder;
+            mediaRecorder.ondataavailable = (event)=>{
+                if (event.data.size > 0) {
+                    chunksRef.current.push(event.data);
                 }
             };
-            reader.onerror = reject;
-            reader.readAsDataURL(blob);
+            mediaRecorder.onstop = async ()=>{
+                const audioBlob = new Blob(chunksRef.current, {
+                    type: 'audio/webm'
+                });
+                chunksRef.current = [];
+                // Here you would typically send the audioBlob to your transcription service
+                // For now, we'll just simulate a response
+                onTranscription("This is a simulated transcription response");
+            };
+            mediaRecorder.start();
         } catch (error) {
-            reject(error);
+            console.error('Error accessing camera:', error);
         }
-    });
-}
-}}),
-"[project]/app/services/geminiWebSocket.ts [app-ssr] (ecmascript)": ((__turbopack_context__) => {
-"use strict";
-
-var { r: __turbopack_require__, f: __turbopack_module_context__, i: __turbopack_import__, s: __turbopack_esm__, v: __turbopack_export_value__, n: __turbopack_export_namespace__, c: __turbopack_cache__, M: __turbopack_modules__, l: __turbopack_load__, j: __turbopack_dynamic__, P: __turbopack_resolve_absolute_path__, U: __turbopack_relative_url__, R: __turbopack_resolve_module_id_path__, b: __turbopack_worker_blob_url__, g: global, __dirname, x: __turbopack_external_require__, y: __turbopack_external_import__, z: __turbopack_require_stub__ } = __turbopack_context__;
-{
-__turbopack_esm__({
-    "GeminiWebSocket": (()=>GeminiWebSocket)
-});
-var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$services$2f$transcriptionService$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/app/services/transcriptionService.ts [app-ssr] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$utils$2f$audioUtils$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/app/utils/audioUtils.ts [app-ssr] (ecmascript)");
-;
-;
-const MODEL = "models/gemini-2.0-flash-exp";
-const API_KEY = ("TURBOPACK compile-time value", "AIzaSyBE_d4CulcTfFyeiIdUO41ZOGVmWMe1HeI");
-const HOST = "generativelanguage.googleapis.com";
-const WS_URL = `wss://${HOST}/ws/google.ai.generativelanguage.v1alpha.GenerativeService.BidiGenerateContent?key=${API_KEY}`;
-async function setLightValues(brightness, colorTemp) {
+    }, [
+        onTranscription
+    ]);
+    const stopCamera = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCallback"])(()=>{
+        if (mediaStreamRef.current) {
+            mediaStreamRef.current.getTracks().forEach((track)=>track.stop());
+            if (videoRef.current) {
+                videoRef.current.srcObject = null;
+            }
+            setIsVideoOn(false);
+        }
+        if (mediaRecorderRef.current && mediaRecorderRef.current.state !== 'inactive') {
+            mediaRecorderRef.current.stop();
+        }
+    }, []);
+    const toggleCamera = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCallback"])(()=>{
+        if (isVideoOn) {
+            stopCamera();
+        } else {
+            startCamera();
+        }
+    }, [
+        isVideoOn,
+        startCamera,
+        stopCamera
+    ]);
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
+        return ()=>{
+            stopCamera();
+        };
+    }, [
+        stopCamera
+    ]);
     return {
-        brightness: brightness,
-        colorTemperature: colorTemp
+        isVideoOn,
+        videoRef,
+        toggleCamera
     };
-}
-async function fetchDoctors(postal_code) {
-    try {
-        const res = await fetch('/api/nppes', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                postal_code: postal_code
-            })
-        });
-        if (!res.ok) throw new Error('Failed to fetch');
-        const data = await res.json();
-        return data;
-    } catch (err) {
-        console.log(err);
-    }
-}
-const fetchDoctorsDeclaration = {
-    name: "getDoctorsFromPostalCode",
-    parameters: {
-        type: "OBJECT",
-        description: "fetch the doctors from a specific postal code",
-        properties: {
-            postal_code: {
-                type: "NUMBER",
-                description: "fetch the doctors from this postal code"
-            }
-        },
-        required: [
-            "postal_code"
-        ]
-    }
 };
-const controlLightFunctionDeclaration = {
-    name: "controlLight",
-    parameters: {
-        type: "OBJECT",
-        description: "Set the brightness and color temperature of a room light.",
-        properties: {
-            brightness: {
-                type: "NUMBER",
-                description: "Light level from 0 to 100. Zero is off and 100 is full brightness."
-            },
-            colorTemperature: {
-                type: "STRING",
-                description: "Color temperature of the light fixture which can be `daylight`, `cool` or `warm`."
-            }
-        },
-        required: [
-            "brightness",
-            "colorTemperature"
-        ]
-    }
-};
-const functions = {
-    controlLight: ({ brightness, colorTemperature })=>{
-        return setLightValues(brightness, colorTemperature);
-    },
-    getDoctorsFromPostalCode: ({ postal_code })=>{
-        return fetchDoctors(postal_code);
-    }
-};
-const system_instruction = "You are a medical assistant chatbot";
-class GeminiWebSocket {
-    ws = null;
-    isConnected = false;
-    isSetupComplete = false;
-    onMessageCallback = null;
-    onSetupCompleteCallback = null;
-    audioContext = null;
-    // Audio queue management
-    audioQueue = [];
-    isPlaying = false;
-    currentSource = null;
-    isPlayingResponse = false;
-    onPlayingStateChange = null;
-    onAudioLevelChange = null;
-    onTranscriptionCallback = null;
-    transcriptionService;
-    accumulatedPcmData = [];
-    constructor(onMessage, onSetupComplete, onPlayingStateChange, onAudioLevelChange, onTranscription){
-        this.onMessageCallback = onMessage;
-        this.onSetupCompleteCallback = onSetupComplete;
-        this.onPlayingStateChange = onPlayingStateChange;
-        this.onAudioLevelChange = onAudioLevelChange;
-        this.onTranscriptionCallback = onTranscription;
-        // Create AudioContext for playback
-        this.audioContext = new AudioContext({
-            sampleRate: 24000 // Match the response audio rate
-        });
-        this.transcriptionService = new __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$services$2f$transcriptionService$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["TranscriptionService"]();
-    }
-    connect() {
-        if (this.ws?.readyState === WebSocket.OPEN) {
-            return;
-        }
-        this.ws = new WebSocket(WS_URL);
-        this.ws.onopen = ()=>{
-            this.isConnected = true;
-            this.sendInitialSetup();
-        };
-        this.ws.onmessage = async (event)=>{
-            try {
-                let messageText;
-                if (event.data instanceof Blob) {
-                    const arrayBuffer = await event.data.arrayBuffer();
-                    const bytes = new Uint8Array(arrayBuffer);
-                    messageText = new TextDecoder('utf-8').decode(bytes);
-                } else {
-                    messageText = event.data;
-                }
-                await this.handleMessage(messageText);
-            } catch (error) {
-                console.error("[WebSocket] Error processing message:", error);
-            }
-        };
-        this.ws.onerror = (error)=>{
-            console.error("[WebSocket] Error:", error);
-        };
-        this.ws.onclose = (event)=>{
-            this.isConnected = false;
-            // Only attempt to reconnect if we haven't explicitly called disconnect
-            if (!event.wasClean && this.isSetupComplete) {
-                setTimeout(()=>this.connect(), 1000);
-            }
-        };
-    }
-    sendInitialSetup() {
-        const setupMessage = {
-            setup: {
-                model: MODEL,
-                generation_config: {
-                    response_modalities: [
-                        "AUDIO"
-                    ]
-                },
-                tools: {
-                    functionDeclarations: [
-                        controlLightFunctionDeclaration,
-                        fetchDoctorsDeclaration
-                    ]
-                }
-            }
-        };
-        this.ws?.send(JSON.stringify(setupMessage));
-    }
-    sendMediaChunk(b64Data, mimeType) {
-        if (!this.isConnected || !this.ws || !this.isSetupComplete) return;
-        const message = {
-            realtime_input: {
-                media_chunks: [
-                    {
-                        mime_type: mimeType === "audio/pcm" ? "audio/pcm" : mimeType,
-                        data: b64Data
-                    }
-                ]
-            }
-        };
-        try {
-            this.ws.send(JSON.stringify(message));
-        } catch (error) {
-            console.error("[WebSocket] Error sending media chunk:", error);
-        }
-    }
-    async playAudioResponse(base64Data) {
-        if (!this.audioContext) return;
-        try {
-            // Decode base64 to bytes
-            const binaryString = atob(base64Data);
-            const bytes = new Uint8Array(binaryString.length);
-            for(let i = 0; i < binaryString.length; i++){
-                bytes[i] = binaryString.charCodeAt(i);
-            }
-            // Convert to Int16Array (PCM format)
-            const pcmData = new Int16Array(bytes.buffer);
-            // Convert to float32 for Web Audio API
-            const float32Data = new Float32Array(pcmData.length);
-            for(let i = 0; i < pcmData.length; i++){
-                float32Data[i] = pcmData[i] / 32768.0;
-            }
-            // Add to queue and start playing if not already playing
-            this.audioQueue.push(float32Data);
-            this.playNextInQueue();
-        } catch (error) {
-            console.error("[WebSocket] Error processing audio:", error);
-        }
-    }
-    async playNextInQueue() {
-        if (!this.audioContext || this.isPlaying || this.audioQueue.length === 0) return;
-        try {
-            this.isPlaying = true;
-            this.isPlayingResponse = true;
-            this.onPlayingStateChange?.(true);
-            const float32Data = this.audioQueue.shift();
-            // Calculate audio level
-            let sum = 0;
-            for(let i = 0; i < float32Data.length; i++){
-                sum += Math.abs(float32Data[i]);
-            }
-            const level = Math.min(sum / float32Data.length * 100 * 5, 100);
-            this.onAudioLevelChange?.(level);
-            const audioBuffer = this.audioContext.createBuffer(1, float32Data.length, 24000);
-            audioBuffer.getChannelData(0).set(float32Data);
-            this.currentSource = this.audioContext.createBufferSource();
-            this.currentSource.buffer = audioBuffer;
-            this.currentSource.connect(this.audioContext.destination);
-            this.currentSource.onended = ()=>{
-                this.isPlaying = false;
-                this.currentSource = null;
-                if (this.audioQueue.length === 0) {
-                    this.isPlayingResponse = false;
-                    this.onPlayingStateChange?.(false);
-                }
-                this.playNextInQueue();
-            };
-            this.currentSource.start();
-        } catch (error) {
-            console.error("[WebSocket] Error playing audio:", error);
-            this.isPlaying = false;
-            this.isPlayingResponse = false;
-            this.onPlayingStateChange?.(false);
-            this.currentSource = null;
-            this.playNextInQueue();
-        }
-    }
-    stopCurrentAudio() {
-        if (this.currentSource) {
-            try {
-                this.currentSource.stop();
-            } catch (e) {
-            // Ignore errors if already stopped
-            }
-            this.currentSource = null;
-        }
-        this.isPlaying = false;
-        this.isPlayingResponse = false;
-        this.onPlayingStateChange?.(false);
-        this.audioQueue = []; // Clear queue
-    }
-    async handleMessage(message) {
-        try {
-            const messageData = JSON.parse(message);
-            console.log("messageData: ", messageData);
-            console.log(messageData.toolCall?.functionCalls);
-            if (messageData.toolCall?.functionCalls) {
-                // If the server sends multiple function calls in an array, handle them all
-                for (const funcCall of messageData.toolCall.functionCalls){
-                    if (funcCall.name === "controlLight") {
-                        const { args, id } = funcCall;
-                        // Call our actual JS function with the args
-                        const result = await functions.controlLight(args);
-                        // Build a response object to send back
-                        const responseMessage = {
-                            functionResponse: {
-                                name: "controlLight",
-                                response: result,
-                                id
-                            }
-                        };
-                        this.ws?.send(JSON.stringify(responseMessage));
-                        console.log("[Tool Response]:", result);
-                        // If you only expect one function call at a time, you can return after
-                        // processing the first. Otherwise, remove this return if you want to
-                        // handle multiple calls in one message.
-                        return;
-                    } else if (funcCall.name === "getDoctorsFromPostalCode") {
-                        const { args, id } = funcCall;
-                        const result = await functions.getDoctorsFromPostalCode(args);
-                        const responseMessage = {
-                            functionResponse: {
-                                name: "getDoctorsFromPostalCode",
-                                response: result,
-                                id
-                            }
-                        };
-                        this.ws?.send(JSON.stringify(responseMessage));
-                        console.log("[Tool Response]:", result);
-                    }
-                }
-            }
-            if (messageData.setupComplete) {
-                this.isSetupComplete = true;
-                this.onSetupCompleteCallback?.();
-                return;
-            }
-            // Handle audio data
-            if (messageData.serverContent?.modelTurn?.parts) {
-                const parts = messageData.serverContent.modelTurn.parts;
-                for (const part of parts){
-                    if (part.inlineData?.mimeType === "audio/pcm;rate=24000") {
-                        this.accumulatedPcmData.push(part.inlineData.data);
-                        this.playAudioResponse(part.inlineData.data);
-                    }
-                }
-            }
-            // Handle turn completion separately
-            if (messageData.serverContent?.turnComplete === true) {
-                if (this.accumulatedPcmData.length > 0) {
-                    try {
-                        const fullPcmData = this.accumulatedPcmData.join('');
-                        const wavData = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$utils$2f$audioUtils$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["pcmToWav"])(fullPcmData, 24000);
-                        const transcription = await this.transcriptionService.transcribeAudio(wavData, "audio/wav");
-                        console.log("[Transcription]:", transcription);
-                        this.onTranscriptionCallback?.(transcription);
-                        this.accumulatedPcmData = []; // Clear accumulated data
-                    } catch (error) {
-                        console.error("[WebSocket] Transcription error:", error);
-                    }
-                }
-            }
-        } catch (error) {
-            console.error("[WebSocket] Error parsing message:", error);
-        }
-    }
-    disconnect() {
-        this.isSetupComplete = false;
-        if (this.ws) {
-            this.ws.close(1000, "Intentional disconnect");
-            this.ws = null;
-        }
-        this.isConnected = false;
-        this.accumulatedPcmData = [];
-    }
-}
 }}),
 "[project]/app/components/CameraPreview.tsx [app-ssr] (ecmascript)": ((__turbopack_context__) => {
 "use strict";
@@ -518,335 +106,37 @@ __turbopack_esm__({
 });
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react-jsx-dev-runtime.js [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react.js [app-ssr] (ecmascript)");
-// import { Card, CardContent } from "../../components/ui/card";
-// import { Button } from "../../components/ui/button";
-// import { Video, VideoOff } from "lucide-react";
-var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$services$2f$geminiWebSocket$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/app/services/geminiWebSocket.ts [app-ssr] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$js$2d$base64$2f$base64$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/node_modules/js-base64/base64.mjs [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$hooks$2f$useMediaStream$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_import__("[project]/app/hooks/useMediaStream.ts [app-ssr] (ecmascript)");
 "use client";
 ;
 ;
 ;
-;
 const CameraPreview = /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["forwardRef"])(({ onTranscription }, ref)=>{
-    const videoRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRef"])(null);
-    const audioContextRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRef"])(null);
-    const [isStreaming, setIsStreaming] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
-    const [stream, setStream] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
-    const [audioLevel, setAudioLevel] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(0);
-    const geminiWsRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRef"])(null);
-    const videoCanvasRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRef"])(null);
-    const audioWorkletNodeRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRef"])(null);
-    const [isAudioSetup, setIsAudioSetup] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
-    const setupInProgressRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRef"])(false);
-    const [isWebSocketReady, setIsWebSocketReady] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
-    const imageIntervalRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRef"])(null);
-    const [isModelSpeaking, setIsModelSpeaking] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
-    const [outputAudioLevel, setOutputAudioLevel] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(0);
-    const [connectionStatus, setConnectionStatus] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])('disconnected');
-    const cleanupAudio = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCallback"])(()=>{
-        if (audioWorkletNodeRef.current) {
-            audioWorkletNodeRef.current.disconnect();
-            audioWorkletNodeRef.current = null;
-        }
-        if (audioContextRef.current) {
-            audioContextRef.current.close();
-            audioContextRef.current = null;
-        }
-    }, []);
-    const cleanupWebSocket = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCallback"])(()=>{
-        if (geminiWsRef.current) {
-            geminiWsRef.current.disconnect();
-            geminiWsRef.current = null;
-        }
-    }, []);
-    // Simplify sendAudioData to just send continuously
-    const sendAudioData = (b64Data)=>{
-        if (!geminiWsRef.current) return;
-        geminiWsRef.current.sendMediaChunk(b64Data, "audio/pcm");
-    };
-    const toggleCamera = async ()=>{
-        if (isStreaming && stream) {
-            setIsStreaming(false);
-            cleanupWebSocket();
-            cleanupAudio();
-            stream.getTracks().forEach((track)=>track.stop());
-            if (videoRef.current) {
-                videoRef.current.srcObject = null;
-            }
-            setStream(null);
-        } else {
-            try {
-                const videoStream = await navigator.mediaDevices.getUserMedia({
-                    video: true,
-                    audio: false
-                });
-                const audioStream = await navigator.mediaDevices.getUserMedia({
-                    audio: {
-                        sampleRate: 16000,
-                        channelCount: 1,
-                        echoCancellation: true,
-                        autoGainControl: true,
-                        noiseSuppression: true
-                    }
-                });
-                audioContextRef.current = new AudioContext({
-                    sampleRate: 16000
-                });
-                if (videoRef.current) {
-                    videoRef.current.srcObject = videoStream;
-                    videoRef.current.muted = true;
-                }
-                const combinedStream = new MediaStream([
-                    ...videoStream.getTracks(),
-                    ...audioStream.getTracks()
-                ]);
-                setStream(combinedStream);
-                setIsStreaming(true);
-            } catch (err) {
-                console.error('Error accessing media devices:', err);
-                cleanupAudio();
-            }
-        }
-    };
-    // Expose the toggleCamera function to the parent
+    const { isVideoOn, videoRef, toggleCamera } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$hooks$2f$useMediaStream$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useMediaStream"])(onTranscription);
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useImperativeHandle"])(ref, ()=>({
             toggleCamera
         }));
-    // Initialize WebSocket connection
-    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
-        if (!isStreaming) {
-            setConnectionStatus('disconnected');
-            return;
-        }
-        setConnectionStatus('connecting');
-        geminiWsRef.current = new __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$services$2f$geminiWebSocket$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["GeminiWebSocket"]((text)=>{
-            console.log("Received from Gemini:", text);
-        }, ()=>{
-            console.log("[Camera] WebSocket setup complete, starting media capture");
-            setIsWebSocketReady(true);
-            setConnectionStatus('connected');
-        }, (isPlaying)=>{
-            setIsModelSpeaking(isPlaying);
-        }, (level)=>{
-            setOutputAudioLevel(level);
-        }, onTranscription);
-        geminiWsRef.current.connect();
-        return ()=>{
-            if (imageIntervalRef.current) {
-                clearInterval(imageIntervalRef.current);
-                imageIntervalRef.current = null;
-            }
-            cleanupWebSocket();
-            setIsWebSocketReady(false);
-            setConnectionStatus('disconnected');
-        };
-    }, [
-        isStreaming,
-        onTranscription,
-        cleanupWebSocket
-    ]);
-    // Start image capture only after WebSocket is ready
-    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
-        if (!isStreaming || !isWebSocketReady) return;
-        console.log("[Camera] Starting image capture interval");
-        imageIntervalRef.current = setInterval(captureAndSendImage, 1000);
-        return ()=>{
-            if (imageIntervalRef.current) {
-                clearInterval(imageIntervalRef.current);
-                imageIntervalRef.current = null;
-            }
-        };
-    }, [
-        isStreaming,
-        isWebSocketReady
-    ]);
-    // Update audio processing setup
-    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
-        if (!isStreaming || !stream || !audioContextRef.current || !isWebSocketReady || isAudioSetup || setupInProgressRef.current) return;
-        let isActive = true;
-        setupInProgressRef.current = true;
-        const setupAudioProcessing = async ()=>{
-            try {
-                const ctx = audioContextRef.current;
-                if (!ctx || ctx.state === 'closed' || !isActive) {
-                    setupInProgressRef.current = false;
-                    return;
-                }
-                if (ctx.state === 'suspended') {
-                    await ctx.resume();
-                }
-                await ctx.audioWorklet.addModule('/worklets/audio-processor.js');
-                if (!isActive) {
-                    setupInProgressRef.current = false;
-                    return;
-                }
-                audioWorkletNodeRef.current = new AudioWorkletNode(ctx, 'audio-processor', {
-                    numberOfInputs: 1,
-                    numberOfOutputs: 1,
-                    processorOptions: {
-                        sampleRate: 16000,
-                        bufferSize: 4096
-                    },
-                    channelCount: 1,
-                    channelCountMode: 'explicit',
-                    channelInterpretation: 'speakers'
-                });
-                const source = ctx.createMediaStreamSource(stream);
-                audioWorkletNodeRef.current.port.onmessage = (event)=>{
-                    if (!isActive || isModelSpeaking) return;
-                    const { pcmData, level } = event.data;
-                    setAudioLevel(level);
-                    const pcmArray = new Uint8Array(pcmData);
-                    const b64Data = __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$js$2d$base64$2f$base64$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Base64"].fromUint8Array(pcmArray);
-                    sendAudioData(b64Data);
-                };
-                source.connect(audioWorkletNodeRef.current);
-                setIsAudioSetup(true);
-                setupInProgressRef.current = false;
-                return ()=>{
-                    source.disconnect();
-                    if (audioWorkletNodeRef.current) {
-                        audioWorkletNodeRef.current.disconnect();
-                    }
-                    setIsAudioSetup(false);
-                };
-            } catch (error) {
-                if (isActive) {
-                    console.log(error);
-                    cleanupAudio();
-                    setIsAudioSetup(false);
-                }
-                setupInProgressRef.current = false;
-            }
-        };
-        console.log("[Camera] Starting audio processing setup");
-        setupAudioProcessing();
-        return ()=>{
-            isActive = false;
-            setIsAudioSetup(false);
-            setupInProgressRef.current = false;
-            if (audioWorkletNodeRef.current) {
-                audioWorkletNodeRef.current.disconnect();
-                audioWorkletNodeRef.current = null;
-            }
-        };
-    }, [
-        isStreaming,
-        stream,
-        isWebSocketReady,
-        isModelSpeaking
-    ]);
-    // Capture and send image
-    const captureAndSendImage = ()=>{
-        if (!videoRef.current || !videoCanvasRef.current || !geminiWsRef.current) return;
-        const canvas = videoCanvasRef.current;
-        const context = canvas.getContext('2d');
-        if (!context) return;
-        // Set canvas size to match video
-        canvas.width = videoRef.current.videoWidth;
-        canvas.height = videoRef.current.videoHeight;
-        // Draw video frame to canvas
-        context.drawImage(videoRef.current, 0, 0);
-        // Convert to base64 and send
-        const imageData = canvas.toDataURL('image/jpeg', 0.8);
-        const b64Data = imageData.split(',')[1];
-        geminiWsRef.current.sendMediaChunk(b64Data, "image/jpeg");
-    };
+    if (!isVideoOn) return null;
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-        className: "space-y-4",
-        children: [
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "relative",
-                children: [
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("video", {
-                        ref: videoRef,
-                        autoPlay: true,
-                        playsInline: true,
-                        className: "w-[200px] h-[133px] bg-muted rounded-lg overflow-hidden"
-                    }, void 0, false, {
-                        fileName: "[project]/app/components/CameraPreview.tsx",
-                        lineNumber: 285,
-                        columnNumber: 11
-                    }, this),
-                    isStreaming && connectionStatus !== 'connected' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "absolute inset-0 bg-black/50 flex items-center justify-center rounded-lg backdrop-blur-sm",
-                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                            className: "text-center space-y-2",
-                            children: [
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                    className: "animate-spin rounded-full h-8 w-8 border-b-2 border-white mx-auto"
-                                }, void 0, false, {
-                                    fileName: "[project]/app/components/CameraPreview.tsx",
-                                    lineNumber: 296,
-                                    columnNumber: 17
-                                }, this),
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                    className: "text-white font-medium",
-                                    children: connectionStatus === 'connecting' ? 'Connecting to Gemini...' : 'Disconnected'
-                                }, void 0, false, {
-                                    fileName: "[project]/app/components/CameraPreview.tsx",
-                                    lineNumber: 297,
-                                    columnNumber: 17
-                                }, this),
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                    className: "text-white/70 text-sm",
-                                    children: "Please wait while we establish a secure connection"
-                                }, void 0, false, {
-                                    fileName: "[project]/app/components/CameraPreview.tsx",
-                                    lineNumber: 300,
-                                    columnNumber: 17
-                                }, this)
-                            ]
-                        }, void 0, true, {
-                            fileName: "[project]/app/components/CameraPreview.tsx",
-                            lineNumber: 295,
-                            columnNumber: 15
-                        }, this)
-                    }, void 0, false, {
-                        fileName: "[project]/app/components/CameraPreview.tsx",
-                        lineNumber: 294,
-                        columnNumber: 13
-                    }, this)
-                ]
-            }, void 0, true, {
-                fileName: "[project]/app/components/CameraPreview.tsx",
-                lineNumber: 284,
-                columnNumber: 9
-            }, this),
-            isStreaming && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "w-[200px] h-2 rounded-full bg-green-100",
-                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                    className: "h-full rounded-full transition-all bg-green-500",
-                    style: {
-                        width: `${isModelSpeaking ? outputAudioLevel : audioLevel}%`,
-                        transition: 'width 100ms ease-out'
-                    }
-                }, void 0, false, {
-                    fileName: "[project]/app/components/CameraPreview.tsx",
-                    lineNumber: 324,
-                    columnNumber: 13
-                }, this)
-            }, void 0, false, {
-                fileName: "[project]/app/components/CameraPreview.tsx",
-                lineNumber: 323,
-                columnNumber: 11
-            }, this),
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("canvas", {
-                ref: videoCanvasRef,
-                className: "hidden"
-            }, void 0, false, {
-                fileName: "[project]/app/components/CameraPreview.tsx",
-                lineNumber: 333,
-                columnNumber: 9
-            }, this)
-        ]
-    }, void 0, true, {
+        className: "relative w-64 h-48 rounded-lg overflow-hidden",
+        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("video", {
+            ref: videoRef,
+            autoPlay: true,
+            playsInline: true,
+            muted: true,
+            className: "w-full h-full object-cover"
+        }, void 0, false, {
+            fileName: "[project]/app/components/CameraPreview.tsx",
+            lineNumber: 26,
+            columnNumber: 9
+        }, this)
+    }, void 0, false, {
         fileName: "[project]/app/components/CameraPreview.tsx",
-        lineNumber: 283,
+        lineNumber: 25,
         columnNumber: 7
     }, this);
 });
+CameraPreview.displayName = 'CameraPreview';
 const __TURBOPACK__default__export__ = CameraPreview;
 }}),
 "[project]/lib/utils.ts [app-ssr] (ecmascript)": ((__turbopack_context__) => {
@@ -1366,4 +656,4 @@ var { r: __turbopack_require__, f: __turbopack_module_context__, i: __turbopack_
 
 };
 
-//# sourceMappingURL=%5Broot%20of%20the%20server%5D__620443._.js.map
+//# sourceMappingURL=%5Broot%20of%20the%20server%5D__778d55._.js.map
