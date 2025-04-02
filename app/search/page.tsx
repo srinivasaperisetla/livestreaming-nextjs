@@ -39,7 +39,8 @@ export default function NpiSearchPage() {
 
       const data = await res.json();
       setResults(data);
-    } catch (err) {
+    } catch (_err) {
+      console.error('Error occurred:', _err);
       setError('Error fetching data.');
     } finally {
       setLoading(false);

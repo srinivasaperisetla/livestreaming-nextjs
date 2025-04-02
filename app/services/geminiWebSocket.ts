@@ -1,4 +1,4 @@
-import { Base64 } from 'js-base64';
+// import { Base64 } from 'js-base64';
 import { TranscriptionService } from './transcriptionService';
 import { pcmToWav } from '../utils/audioUtils';
 
@@ -7,15 +7,21 @@ const API_KEY = process.env.NEXT_PUBLIC_GEMINI_API_KEY;
 const HOST = "generativelanguage.googleapis.com";
 const WS_URL = `wss://${HOST}/ws/google.ai.generativelanguage.v1alpha.GenerativeService.BidiGenerateContent?key=${API_KEY}`;
 
-async function setLightValues(brightness: any, colorTemp: any) {
+// Add proper types instead of any
+interface LightValues {
+  brightness: number;
+  colorTemperature: string;
+}
+
+async function setLightValues(brightness: number, colorTemp: string): Promise<LightValues> {
   return {
-    brightness: brightness,
+    brightness,
     colorTemperature: colorTemp
   };
 }
 
-async function fetchDoctors(postal_code: any){
-
+// Add proper type for postal_code
+async function fetchDoctors(postal_code: string) {
   try {
     const res = await fetch('/api/nppes', {
       method: 'POST',
@@ -69,7 +75,7 @@ const controlLightFunctionDeclaration = {
 };
 
 const functions = {
-  controlLight: ({ brightness, colorTemperature }: { brightness: string; colorTemperature: string }) => {
+  controlLight: ({ brightness, colorTemperature }: { brightness: number; colorTemperature: string }) => {
     return setLightValues(brightness, colorTemperature);
   },
   getDoctorsFromPostalCode: ({ postal_code }: { postal_code : string; }) => {
@@ -78,8 +84,8 @@ const functions = {
   
 };
 
-const system_instruction = "You are a medical assistant chatbot";
-
+// Remove unused system_instruction or use it
+// const system_instruction = "You are a medical assistant chatbot";
 
 export class GeminiWebSocket {
   private ws: WebSocket | null = null;
@@ -278,7 +284,7 @@ export class GeminiWebSocket {
     if (this.currentSource) {
       try {
         this.currentSource.stop();
-      } catch (e) {
+      } catch (_e) {
         // Ignore errors if already stopped
       }
       this.currentSource = null;

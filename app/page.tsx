@@ -4,7 +4,8 @@ import { useState, useCallback, useRef } from 'react';
 import CameraPreview from './components/CameraPreview';
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import { Mic, Camera, Monitor, ArrowUp } from "lucide-react";
+import { Mic, Camera, ArrowUp } from "lucide-react";
+import { CameraPreviewHandles } from './types/camera';
 
 // Helper function to create message components
 const HumanMessage = ({ text }: { text: string }) => (
@@ -46,7 +47,7 @@ export default function Home() {
   const [messages, setMessages] = useState<{ type: 'human' | 'gemini', text: string }[]>([]);
   const [isAudioActive, setIsAudioActive] = useState(false);
   const [isCameraActive, setIsCameraActive] = useState(false);
-  const cameraRef = useRef<any>(null);
+  const cameraRef = useRef<CameraPreviewHandles>(null);
 
   const handleTranscription = useCallback((transcription: string) => {
     setMessages(prev => [...prev, { type: 'gemini', text: transcription }]);
